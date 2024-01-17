@@ -24,11 +24,16 @@ def imread(filename: str, flags: int = cv2.IMREAD_COLOR):
     """
     return cv2.imdecode(np.fromfile(filename, np.uint8), flags)
 
+def flush(self):
+    pass
 
 def imwrite(filename: str, img: np.ndarray, params=None):
     """
     Write an image to a file.
-
+    
+    def flush(self):
+    pass
+    
     Args:
         filename (str): Path to the file to write.
         img (np.ndarray): Image to write.
