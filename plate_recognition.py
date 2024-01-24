@@ -106,7 +106,9 @@ class Plate_Recognition():
             boxes = [None] * len(result_ocr[0])
             txts = [None] * len(result_ocr[0])
             scores = [None] * len(result_ocr[0])
-            imx = cv2.rectangle(img, (x1, y1), (x2, y2), color = (0, 255, 0))
+
+            imx = cv2.rectangle(img, (x1, y1), (x2, y2), color = (0, 255, 0), thickness = 2)
+
             
             
             for idx, line in enumerate(result_ocr[0]):
@@ -115,6 +117,10 @@ class Plate_Recognition():
                 txts[idx] = line[1][0]
                 scores[idx] = line[1][1]
                 
+            imx = cv2.putText(imx, ' '.join(txts), (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA, False)
+            plt.imshow(imx)
+            plt.show()
+            
             # Write output and save
             if save_img:
 
@@ -207,12 +213,12 @@ class Plate_Recognition():
         """
         Post-processes predictions and returns a list of Results objects.
         Args:
-                preds: i forgor
+                preds
                 img: resized image from preprocessing
                 orig_imgs: input image
         
         Returns:
-                results: i forgor
+                results
                 pred[:, :4]: bounding boxes
                 score: confidence score
         """
@@ -246,7 +252,9 @@ class Plate_Recognition():
         y2 = int(boxes[0][3])
 
         imx = cv2.rectangle(original, (x1, y1), (x2, y2), color = (0, 255, 0))
+        imx = cv2.putText(imx, txts[0], (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA, False)
         plt.imshow(imx)
+        plt.show()
         
         # cv2cropped = cv2.imread(cropped_img)
         im_show = draw_ocr(cropped_img, boxes, txts, scores, font_path=font)
